@@ -36,6 +36,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"lnmessage": "^0.2.1"
+		"lnmessage": "^0.2.1",
+		"nouislider": "^15.7.1"
 	}
 }
