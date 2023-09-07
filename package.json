@@ -15,6 +15,7 @@
 	},
 	"devDependencies": {
 		"@playwright/test": "^1.28.1",
+		"@skeletonlabs/skeleton": "^2.0.0",
 		"@sveltejs/adapter-auto": "^2.0.0",
 		"@sveltejs/kit": "^1.5.0",
 		"@typescript-eslint/eslint-plugin": "^5.45.0",
@@ -36,8 +37,6 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@skeletonlabs/skeleton": "^2.0.0",
-		"lnmessage": "^0.2.1",
-		"nouislider": "^15.7.1"
+		"lnmessage": "^0.2.1"
 	}
 }
