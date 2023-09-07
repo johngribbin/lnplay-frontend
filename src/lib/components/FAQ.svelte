@@ -25,6 +25,10 @@
     {
       q: 'What if I need more time or nodes?',
       a: 'Once purchased, any changes require purchasing a new environment.For larger events or a requirement for a longer rental period, please email us at @ ______.'
+    },
+    {
+      q: 'What else could LNPlay do?',
+      a: 'We think LNPlay is the proof of concept for a paid lightning instance. What we have created can spin up a temporary infrastracure for microservices on lighting.'
     }
   ]
 </script>
