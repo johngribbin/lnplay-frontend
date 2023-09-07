@@ -2,7 +2,7 @@
   import Lnmessage from 'lnmessage'
   import { parseNodeAddress } from './utils.js'
   import { onMount } from 'svelte'
-  import Slider from '../components/Slider.svelte'
+  import FAQ from '../components/FAQ.svelte'
 
   let ln: Lnmessage
   let connectionStatus$: Lnmessage['connectionStatus$']
@@ -70,95 +70,77 @@
 
   let product = {
     node_count: 8,
-    hours: 8,
-    showDropdown: false
+    hours: 8
   }
 </script>
 
-<main class="w-screen flex-col items-center justify-center p-6 relative">
-  {#if ln}
+<main class="p-6 relative">
+  <!-- {#if ln}
     <div class="absolute top-1 right-1 px-2 py-1 border-green-600 rounded border text-sm">
       Browser Id: {`${ln.publicKey.slice(0, 8)}...${ln.publicKey.slice(-8)}`}
     </div>
-  {/if}
+  {/if} -->
 
-  <!-- PRODUCT -->
-  <div class="flex-col justify-center w-screen items-center border items-center">
-    <p>{product.node_count} NODES</p>
-    <input
-      class="h-2 bg-purple-50 appearance-none mr-4 accent-purple-500 dark:accent-purple-300"
-      type="range"
-      min={8}
-      max="32"
-      step="8"
-      bind:value={product.node_count}
-      on:change={(e) => {
-        product = {
-          ...product,
-          node_count: e.target.value
-        }
-      }}
-    />
-    <p>{product.hours} HOURS</p>
-    <input
-      class="h-2 bg-purple-50 appearance-none mr-4 accent-purple-500 dark:accent-purple-300"
-      type="range"
-      min={8}
-      max="24"
-      step="8"
-      bind:value={product.hours}
-      on:change={(e) => {
-        product = {
-          ...product,
-          hours: e.target.value
-        }
-      }}
-    />
-  </div>
-
-  <!-- TESTING -->
-  <!-- <div class="border w-full flex items-center">
-    <div class="w-1/2 p-4 border-2 rounded border-orange-300 mt-8">
-      <div class="w-full text-sm">
-        <label class="text-neutral-600 font-medium mb-1 block" for="method">Method</label>
+  <!-- HERO / VALUE PROP -->
+  <section class="text-center border">
+    <h1 class="font-bold text-6xl">LNPlay</h1>
+    <p class="mt-5 text-2xl">
+      @TODO - Hero. - Add value prop here? - What is lnplay? - Why its important? - Some example use
+      cases - Add hero background image?
+    </p>
+  </section>
+  <!-- PLACE ORDER -->
+  <section class="mt-40 text-center border">
+    <h1 class="font-bold text-6xl">Place Your Order</h1>
+    <div class="mt-8 flex gap-4 justify-center items-center">
+      <div class="">
+        <p class="font-bold text-4xl mr-4">{product.node_count} NODES</p>
         <input
-          id="method"
-          class="border w-full p-2 rounded"
-          type="text"
-          bind:value={method}
-          placeholder="getinfo"
+          class="h-2 bg-blue-200 appearance-none mr-4"
+          type="range"
+          min={8}
+          max="32"
+          step="8"
+          bind:value={product.node_count}
+          on:change={(e) => {
+            product = {
+              ...product,
+              node_count: e.target.value
+            }
+          }}
         />
       </div>
-
-      <div class="w-full mt-4 text-sm">
-        <label class="text-neutral-600 font-medium mb-1 block" for="params">Params</label>
-        <textarea
-          id="params"
-          class="border w-full p-2 rounded"
-          rows="4"
-          bind:value={params}
-          placeholder={JSON.stringify({ key: 'value' }, null, 2)}
+      <div class="">
+        <p CLASS="font-bold text-4xl mr-4">{product.hours} HOURS</p>
+        <input
+          class="h-2 bg-blue-200 appearance-none mr-4"
+          type="range"
+          min={8}
+          max="24"
+          step="8"
+          bind:value={product.hours}
+          on:change={(e) => {
+            product = {
+              ...product,
+              hours: e.target.value
+            }
+          }}
         />
       </div>
+    </div>
 
+    <div class="mt-8">
       <button
-        on:click={request}
-        disabled={!connectionStatus$ || !rune || !method}
-        class="mt-2 border border-purple-500 rounded py-1 px-4 disabled:opacity-20 hover:shadow-md active:shadow-none"
-        >Request</button
+        type="button"
+        class="text-4xl inline-block rounded bg-black px-6 pb-2 pt-2.5 font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
       >
+        BUY
+      </button>
     </div>
-    <div class="w-1/2 p-4 border-2 rounded border-green-300 ml-4">
-      <div class="w-full text-sm">
-        <label class="text-neutral-600 font-medium mb-1 block" for="params">Result</label>
-        <textarea
-          id="params"
-          class="border w-full p-2 rounded"
-          rows="20"
-          value={result || ''}
-          placeholder={JSON.stringify({ key: 'value' }, null, 2)}
-        />
-      </div>
-    </div>
-  </div> -->
+  </section>
+  <!-- FAQ -->
+  <section class="mt-40 text-center mb-20">
+    <h1 class="font-bold text-6xl mb-5">FAQ</h1>
+    <FAQ />
+  </section>
 </main>

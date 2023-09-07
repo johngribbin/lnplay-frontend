@@ -36,6 +36,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@skeletonlabs/skeleton": "^2.0.0",
 		"lnmessage": "^0.2.1",
 		"nouislider": "^15.7.1"
 	}
