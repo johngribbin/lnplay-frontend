@@ -8,7 +8,7 @@ This project was was bootstrapped with `create-core-ln`, check it out [here](htt
 
 ```bash
 git clone https://github.com/johngribbin/lnplay-frontend.git
-cd create-core-ln-app
+cd lnplay-frontend
 ```
 
 2. Install the dependencies
