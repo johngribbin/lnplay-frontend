@@ -2,7 +2,9 @@
   import Lnmessage from 'lnmessage'
   import { parseNodeAddress } from './utils.js'
   import { onMount } from 'svelte'
-  import FAQ from '../components/FAQ.svelte'
+  import FAQ from '../lib/components/FAQ.svelte'
+  import LightningBoltSVG from '../lib/images/LightningBolt.js'
+  import LightningBolt from '../lib/images/LightningBolt.js'
 
   let ln: Lnmessage
   let connectionStatus$: Lnmessage['connectionStatus$']
@@ -83,7 +85,7 @@
   }
 </script>
 
-<main class="p-6 relative">
+<main class="p-6 pt-0 relative">
   <!-- {#if ln}
     <div class="absolute top-1 right-1 px-2 py-1 border-green-600 rounded border text-sm">
       Browser Id: {`${ln.publicKey.slice(0, 8)}...${ln.publicKey.slice(-8)}`}
@@ -91,13 +93,57 @@
   {/if} -->
 
   <!-- HERO / VALUE PROP -->
-  <section class="text-center border">
+  <section class="text-center border flex items-center">
+    <svg
+      fill="#000000"
+      version="1.1"
+      id="Capa_1"
+      xmlns="http://www.w3.org/2000/svg"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      width="auto"
+      height="auto"
+      viewBox="0 0 560.317 560.316"
+      xml:space="preserve"
+    >
+      <g>
+        <g>
+          <path
+            d="M207.523,560.316c0,0,194.42-421.925,194.444-421.986l10.79-23.997c-41.824,12.02-135.271,34.902-135.57,35.833
+			C286.96,122.816,329.017,0,330.829,0c-39.976,0-79.952,0-119.927,0l-12.167,57.938l-51.176,209.995l135.191-36.806
+			L207.523,560.316z"
+          />
+        </g>
+      </g>
+    </svg>
     <h1 class="font-bold text-6xl">LNPlay</h1>
-    <p class="mt-5 text-2xl">
-      @TODO - Hero. - Add value prop here? - What is lnplay? - Why its important? - Some example use
-      cases - Add hero background image?
-    </p>
+    <svg
+      fill="#000000"
+      version="1.1"
+      id="Capa_1"
+      xmlns="http://www.w3.org/2000/svg"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      width="auto"
+      height="auto"
+      viewBox="0 0 560.317 560.316"
+      xml:space="preserve"
+    >
+      <g>
+        <g>
+          <path
+            d="M207.523,560.316c0,0,194.42-421.925,194.444-421.986l10.79-23.997c-41.824,12.02-135.271,34.902-135.57,35.833
+			C286.96,122.816,329.017,0,330.829,0c-39.976,0-79.952,0-119.927,0l-12.167,57.938l-51.176,209.995l135.191-36.806
+			L207.523,560.316z"
+          />
+        </g>
+      </g>
+    </svg>
   </section>
+  <p class="mt-5 text-2xl">
+    {`@TODO VALUE PROP
+    - What is lnplay? 
+    - Why its important? 
+    - Some example use cases`}
+  </p>
   <!-- PLACE ORDER -->
   <section class="mt-40 text-center border">
     <h1 class="font-bold text-6xl">Place Your Order</h1>
