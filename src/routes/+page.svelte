@@ -2,9 +2,14 @@
   import Lnmessage from 'lnmessage'
   import { parseNodeAddress } from './utils.js'
   import { onMount } from 'svelte'
-  import FAQ from '../lib/components/FAQ.svelte'
-  import LightningBoltSVG from '../lib/images/LightningBolt.js'
-  import LightningBolt from '../lib/images/LightningBolt.js'
+  import FAQ from '$lib/components/FAQ.svelte'
+  import { openModal } from 'svelte-modals'
+  import Modal from '$lib/components/Modal.svelte'
+  import LightningBoltSvg from '$lib/images/LightningBolt.svg'
+
+  function handleClick() {
+    openModal(Modal, { invoice: 'blabla' })
+  }
 
   let ln: Lnmessage
   let connectionStatus$: Lnmessage['connectionStatus$']
@@ -14,9 +19,23 @@
   }
 
   let address: string =
-    '03b3bfe683fe1fd7ec42f349d6f9697fd9ba1d9f24a29615a324d1e0a89475d405@lnplay.live:6002'
-  let rune: string = '2IqUuIKMC9sIvXvo_3hiRTofZX_owEpynjRrq9wP1pk9MQ=='
-  let response
+    '037b91a48eaf301ab330610a9b6d4b0bf5dfb1a1d309e097c561971d58d20ab8f6@lnplay.live:6002'
+  let rune: string =
+    'VEyOi35UjtAM70GuXWrc7hlQy39s7ccQedBep41cRi49MSZtZXRob2RebG5wbGF5bGl2ZSZyYXRlPTYw'
+  let order = {
+    node_count: 8,
+    hours: 8
+  }
+  let createOrderResponse: CreateOrderResponse | null = null
+  let invoice: string
+
+  type CreateOrderResponse = {
+    node_count: number
+    hours: number
+    expires_after: string
+    bolt11_invoice_id: string
+    bolt11_invoice: string
+  }
 
   async function connect() {
     const { publicKey, ip, port } = parseNodeAddress(address)
@@ -50,15 +69,12 @@
     try {
       parsedParams = params ? JSON.parse(params) : undefined
 
-      const requestResult = await ln.commando({
+      const response = (await ln.commando({
         method,
         params: parsedParams,
         rune
-      })
-
-      const result = JSON.stringify(requestResult, null, 2)
-
-      return result
+      })) as CreateOrderResponse
+      return response
     } catch (error) {
       const { message } = error as { message: string }
       alert(message)
@@ -70,82 +86,91 @@
     connect()
   })
 
-  let order = {
-    node_count: 8,
-    hours: 8
-  }
-
   async function createOrder() {
     const { node_count, hours } = order
-    response = await request(
+    const response = await request(
       'lnplaylive-createorder',
       `{ "node_count": ${node_count}, "hours": ${hours} }`
     )
-    console.log('RESPONSE = ', response)
+
+    if (response) {
+      createOrderResponse = response
+    }
+  }
+
+  // render the qr code to pay invoice.
+  $: {
+    if (createOrderResponse) {
+      const { bolt11_invoice } = createOrderResponse
+      invoice = bolt11_invoice
+      openModal(Modal, { invoice })
+    }
   }
 </script>
 
 <main class="p-6 pt-0 relative">
-  <!-- {#if ln}
+  {#if ln}
     <div class="absolute top-1 right-1 px-2 py-1 border-green-600 rounded border text-sm">
       Browser Id: {`${ln.publicKey.slice(0, 8)}...${ln.publicKey.slice(-8)}`}
     </div>
-  {/if} -->
+  {/if}
 
   <!-- HERO / VALUE PROP -->
-  <section class="text-center border flex items-center">
-    <svg
-      fill="#000000"
-      version="1.1"
-      id="Capa_1"
-      xmlns="http://www.w3.org/2000/svg"
-      xmlns:xlink="http://www.w3.org/1999/xlink"
-      width="auto"
-      height="auto"
-      viewBox="0 0 560.317 560.316"
-      xml:space="preserve"
-    >
-      <g>
-        <g>
+  <section class="text-center flex flex-wrap-reverse justify-center items-center gap-10">
+    <div class="max-w-sm">
+      <svg
+        width="100%"
+        height="auto"
+        viewBox="0 0 523 1079"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <mask
+          id="mask0_242_77"
+          style="mask-type:luminance"
+          maskUnits="userSpaceOnUse"
+          x="0"
+          y="0"
+          width="100%"
+          height="auto"
+        >
+          <path d="M0 0H523V1078.67H0V0Z" fill="white" />
+        </mask>
+        <g mask="url(#mask0_242_77)">
           <path
-            d="M207.523,560.316c0,0,194.42-421.925,194.444-421.986l10.79-23.997c-41.824,12.02-135.271,34.902-135.57,35.833
-			C286.96,122.816,329.017,0,330.829,0c-39.976,0-79.952,0-119.927,0l-12.167,57.938l-51.176,209.995l135.191-36.806
-			L207.523,560.316z"
+            d="M407.328 1.08984L296.302 297.147L523.037 262.507L0.036499 1078.93L194.417 540.001L32.4375 560.819L175.917 1.08984H407.328Z"
+            fill="#FEDD2B"
           />
         </g>
-      </g>
-    </svg>
-    <h1 class="font-bold text-6xl">LNPlay</h1>
-    <svg
-      fill="#000000"
-      version="1.1"
-      id="Capa_1"
-      xmlns="http://www.w3.org/2000/svg"
-      xmlns:xlink="http://www.w3.org/1999/xlink"
-      width="auto"
-      height="auto"
-      viewBox="0 0 560.317 560.316"
-      xml:space="preserve"
-    >
-      <g>
-        <g>
+        <mask
+          id="mask1_242_77"
+          style="mask-type:luminance"
+          maskUnits="userSpaceOnUse"
+          x="0"
+          y="0"
+          width="100%"
+          height="auto"
+        >
+          <path d="M0 0H236.536V1078.67H0V0Z" fill="white" />
+        </mask>
+        <g mask="url(#mask1_242_77)">
           <path
-            d="M207.523,560.316c0,0,194.42-421.925,194.444-421.986l10.79-23.997c-41.824,12.02-135.271,34.902-135.57,35.833
-			C286.96,122.816,329.017,0,330.829,0c-39.976,0-79.952,0-119.927,0l-12.167,57.938l-51.176,209.995l135.191-36.806
-			L207.523,560.316z"
+            d="M175.917 1.08984H217.578L32.4375 560.819L175.917 1.08984ZM0.036499 1078.93L236.083 540.001H194.417L0.036499 1078.93Z"
+            fill="#557AFF"
           />
         </g>
-      </g>
-    </svg>
+      </svg>
+    </div>
+    <div>
+      <h1 class="font-bold text-6xl">LNPlay.live</h1>
+      <p class="mt-5 font-bold text-2xl">Rent a Lightning Network</p>
+    </div>
   </section>
-  <p class="mt-5 text-2xl">
-    {`@TODO VALUE PROP
-    - What is lnplay? 
-    - Why its important? 
-    - Some example use cases`}
+  <p class="mt-5 text-2xl text-red-500">
+    {`VALUE PROP // What is lnplay? // Why its important? // Some example use cases`}
   </p>
   <!-- PLACE ORDER -->
-  <section class="mt-40 text-center border">
+  <section class="mt-40 text-center border max-w-3xl p-5 pt-10 pl-10 m-auto rounded bg-[#FEDD2B]">
     <h1 class="font-bold text-6xl">Place Your Order</h1>
     <div class="mt-8 flex gap-4 justify-center items-center">
       <div class="">
@@ -195,7 +220,7 @@
     </div>
   </section>
   <!-- FAQ -->
-  <section class="mt-40 text-center mb-20">
+  <section class="mt-40 mb-20 max-w-3xl m-auto text-center">
     <h1 class="font-bold text-6xl mb-5">FAQ</h1>
     <FAQ />
   </section>
