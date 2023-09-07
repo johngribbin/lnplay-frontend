@@ -162,11 +162,11 @@
       </svg>
     </div>
     <div>
-      <h1 class="font-bold text-6xl style="color: #1736F5;">LNPlay.live</h1>
-      <p class="mt-5 font-bold text-2xl style="color: #1736F5;">Rent a Lightning Network</p>
+      <h1 class="font-bold text-6xl text-[#1736F5]">LNPlay.live</h1>
+      <p class="mt-5 font-bold text-2xl text-[#1736F5]">Rent a Lightning Network</p>
     </div>
   </section>
-  <p class="mt-5 text-2xl text-red-500">
+  <p class="mt-10 text-4xl text-bold text-[#1736F5] text-center max-w-2xl m-auto">
     {`explore the power of the lightning network with your own testing environment`}
   </p>
   <!-- PLACE ORDER -->
