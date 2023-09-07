@@ -1,7 +1,6 @@
 <script lang="ts">
   import { closeModal } from 'svelte-modals'
-  import CopyValue from '$lib/elements/CopyValue.svelte'
-  import { truncateValue } from '$lib/utils'
+  import Qr from './QR.svelte'
   // provided by <Modals />
   export let isOpen: boolean
 
@@ -11,9 +10,7 @@
 {#if isOpen}
   <div role="dialog" class="modal">
     <div class="contents">
-      <div>
-        <CopyValue truncateLength={10} value={invoice} />
-      </div>
+      <Qr data={invoice} />
 
       <div class="actions">
         <button on:click={closeModal}>OK</button>
