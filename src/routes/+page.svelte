@@ -162,12 +162,12 @@
       </svg>
     </div>
     <div>
-      <h1 class="font-bold text-6xl">LNPlay.live</h1>
-      <p class="mt-5 font-bold text-2xl">Rent a Lightning Network</p>
+      <h1 class="font-bold text-6xl style="color: #1736F5;">LNPlay.live</h1>
+      <p class="mt-5 font-bold text-2xl style="color: #1736F5;">Rent a Lightning Network</p>
     </div>
   </section>
   <p class="mt-5 text-2xl text-red-500">
-    {`VALUE PROP // What is lnplay? // Why its important? // Some example use cases`}
+    {`explore the power of the lightning network with your own testing environment`}
   </p>
   <!-- PLACE ORDER -->
   <section class="mt-40 text-center border max-w-3xl p-5 pt-10 pl-10 m-auto rounded bg-[#FEDD2B]">
