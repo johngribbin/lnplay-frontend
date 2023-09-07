@@ -1,14 +1,28 @@
 <script lang="ts">
   import Lnmessage from 'lnmessage'
   import { parseNodeAddress } from './utils.js'
-  import { onMount } from 'svelte'
+  import { onDestroy, onMount } from 'svelte'
   import FAQ from '$lib/components/FAQ.svelte'
   import { openModal } from 'svelte-modals'
   import Modal from '$lib/components/Modal.svelte'
-  import LightningBoltSvg from '$lib/images/LightningBolt.svg'
+  import { goto } from '$app/navigation'
+  import { closeModal } from 'svelte-modals'
 
-  function handleClick() {
-    openModal(Modal, { invoice: 'blabla' })
+  type CreateOrderResponse = {
+    node_count: number
+    hours: number
+    expires_after: string
+    bolt11_invoice_id: string
+    bolt11_invoice: string
+  }
+
+  type FetchInvoiceStatusResponse = {
+    invoice_id: string
+    node_count: number
+    hours: number
+    payment_type: string
+    invoice_status: string
+    deployment_details: string
   }
 
   let ln: Lnmessage
@@ -27,15 +41,8 @@
     hours: 8
   }
   let createOrderResponse: CreateOrderResponse | null = null
-  let invoice: string
-
-  type CreateOrderResponse = {
-    node_count: number
-    hours: number
-    expires_after: string
-    bolt11_invoice_id: string
-    bolt11_invoice: string
-  }
+  let invoiceStatusResponse: FetchInvoiceStatusResponse | null = null
+  let pollInterval: string | number | NodeJS.Timer | undefined
 
   async function connect() {
     const { publicKey, ip, port } = parseNodeAddress(address)
@@ -69,11 +76,11 @@
     try {
       parsedParams = params ? JSON.parse(params) : undefined
 
-      const response = (await ln.commando({
+      const response = await ln.commando({
         method,
         params: parsedParams,
         rune
-      })) as CreateOrderResponse
+      })
       return response
     } catch (error) {
       const { message } = error as { message: string }
@@ -88,24 +95,82 @@
 
   async function createOrder() {
     const { node_count, hours } = order
-    const response = await request(
+    const response = (await request(
       'lnplaylive-createorder',
       `{ "node_count": ${node_count}, "hours": ${hours} }`
-    )
+    )) as CreateOrderResponse
 
+    console.log(
+      `
+    
+      lnplaylive-createorder response = 
+    
+    `,
+      response
+    )
     if (response) {
       createOrderResponse = response
+      console.log(`
+      
+      createOrderResponse = ${createOrderResponse}
+      
+      `)
     }
   }
 
-  // render the qr code to pay invoice.
-  $: {
-    if (createOrderResponse) {
-      const { bolt11_invoice } = createOrderResponse
-      invoice = bolt11_invoice
-      openModal(Modal, { invoice })
+  async function fetchInvoiceStatus() {
+    if (createOrderResponse?.bolt11_invoice_id) {
+      const response = (await request(
+        'lnplaylive-invoicestatus',
+        `{ "payment_type": "bolt11", "invoice_id": "${createOrderResponse?.bolt11_invoice_id}" }`
+      )) as FetchInvoiceStatusResponse
+
+      console.log(
+        `
+    
+      lnplaylive-invoicestatus response = 
+    
+    `,
+        response
+      )
+      if (response) {
+        console.log('lnplaylive-invoicestatus response = ', response)
+        invoiceStatusResponse = response
+      }
     }
   }
+
+  function startInvoiceStatusPolling() {
+    pollInterval = setInterval(fetchInvoiceStatus, 5000) // 5 seconds
+  }
+
+  function stopInvoiceStatusPolling() {
+    clearInterval(pollInterval)
+  }
+
+  // render the invoice as sqr code in modal & start polling for invoice status
+  $: {
+    if (createOrderResponse) {
+      openModal(Modal, { invoice: createOrderResponse.bolt11_invoice })
+      startInvoiceStatusPolling()
+    }
+  }
+
+  // when invoice gets paid, forward user to order page
+  $: {
+    if (invoiceStatusResponse?.invoice_status === 'paid') {
+      closeModal()
+      console.log('Stopping Polling!!')
+      stopInvoiceStatusPolling()
+      console.log('forwarding to the orders page!!')
+      goto(`/order/${invoiceStatusResponse.invoice_id}`)
+    }
+  }
+
+  // Stop polling when the component is destroyed
+  onDestroy(() => {
+    stopInvoiceStatusPolling()
+  })
 </script>
 
 <main class="p-6 pt-0 relative">
@@ -170,7 +235,7 @@
     {`explore the power of the lightning network with your own testing environment`}
   </p>
   <!-- PLACE ORDER -->
-  <section class="mt-40 text-center border max-w-3xl p-5 pt-10 pl-10 m-auto rounded bg-[#FEDD2B]">
+  <section class="mt-20 text-center border max-w-3xl p-5 pt-10 pl-10 m-auto rounded bg-[#FEDD2B]">
     <h1 class="font-bold text-6xl">Place Your Order</h1>
     <div class="mt-8 flex gap-4 justify-center items-center">
       <div class="">
@@ -220,7 +285,7 @@
     </div>
   </section>
   <!-- FAQ -->
-  <section class="mt-40 mb-20 max-w-3xl m-auto text-center">
+  <section class="mt-20 mb-20 max-w-3xl m-auto">
     <h1 class="font-bold text-6xl mb-5">FAQ</h1>
     <FAQ />
   </section>
