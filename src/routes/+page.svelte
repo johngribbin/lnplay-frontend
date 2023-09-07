@@ -166,8 +166,8 @@
       <p class="mt-5 font-bold text-2xl text-[#1736F5]">Rent a Lightning Network</p>
     </div>
   </section>
-  <p class="mt-10 text-4xl text-bold text-[#1736F5] text-center max-w-2xl m-auto">
-    {`explore the power of the lightning network with your own testing environment`}
+  <p class="mt-10 text-2xl text-[#1736F5] text-center max-w-2xl m-auto">
+    {`Educate a room by safely demonstrating the power of lightning`}
   </p>
   <!-- PLACE ORDER -->
   <section class="mt-40 text-center border max-w-3xl p-5 pt-10 pl-10 m-auto rounded bg-[#FEDD2B]">
