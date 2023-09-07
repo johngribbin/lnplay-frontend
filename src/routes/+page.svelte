@@ -14,9 +14,7 @@
   let address: string =
     '03b3bfe683fe1fd7ec42f349d6f9697fd9ba1d9f24a29615a324d1e0a89475d405@lnplay.live:6002'
   let rune: string = '2IqUuIKMC9sIvXvo_3hiRTofZX_owEpynjRrq9wP1pk9MQ=='
-  let method: string
-  let params: string
-  let result: string
+  let response
 
   async function connect() {
     const { publicKey, ip, port } = parseNodeAddress(address)
@@ -44,7 +42,7 @@
     await ln.connect()
   }
 
-  async function request() {
+  async function request(method: string, params: string) {
     let parsedParams: unknown | undefined
 
     try {
@@ -56,7 +54,9 @@
         rune
       })
 
-      result = JSON.stringify(requestResult, null, 2)
+      const result = JSON.stringify(requestResult, null, 2)
+
+      return result
     } catch (error) {
       const { message } = error as { message: string }
       alert(message)
@@ -68,9 +68,18 @@
     connect()
   })
 
-  let product = {
+  let order = {
     node_count: 8,
     hours: 8
+  }
+
+  async function createOrder() {
+    const { node_count, hours } = order
+    response = await request(
+      'lnplaylive-createorder',
+      `{ "node_count": ${node_count}, "hours": ${hours} }`
+    )
+    console.log('RESPONSE = ', response)
   }
 </script>
 
@@ -94,34 +103,34 @@
     <h1 class="font-bold text-6xl">Place Your Order</h1>
     <div class="mt-8 flex gap-4 justify-center items-center">
       <div class="">
-        <p class="font-bold text-4xl mr-4">{product.node_count} NODES</p>
+        <p class="font-bold text-4xl mr-4">{order.node_count} NODES</p>
         <input
           class="h-2 bg-blue-200 appearance-none mr-4"
           type="range"
           min={8}
           max="32"
           step="8"
-          bind:value={product.node_count}
+          bind:value={order.node_count}
           on:change={(e) => {
-            product = {
-              ...product,
+            order = {
+              ...order,
               node_count: e.target.value
             }
           }}
         />
       </div>
       <div class="">
-        <p CLASS="font-bold text-4xl mr-4">{product.hours} HOURS</p>
+        <p CLASS="font-bold text-4xl mr-4">{order.hours} HOURS</p>
         <input
           class="h-2 bg-blue-200 appearance-none mr-4"
           type="range"
           min={8}
           max="24"
           step="8"
-          bind:value={product.hours}
+          bind:value={order.hours}
           on:change={(e) => {
-            product = {
-              ...product,
+            order = {
+              ...order,
               hours: e.target.value
             }
           }}
@@ -133,6 +142,7 @@
       <button
         type="button"
         class="text-4xl inline-block rounded bg-black px-6 pb-2 pt-2.5 font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
+        on:click={createOrder}
       >
         BUY
       </button>
