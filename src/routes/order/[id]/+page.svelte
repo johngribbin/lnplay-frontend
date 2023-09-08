@@ -5,6 +5,7 @@
   import DownloadButton from '$lib/components/DownloadButton.svelte'
   import { onDestroy, onMount } from 'svelte'
   import { connect, request } from '../../utils'
+  import Qr from '$lib/components/QR.svelte'
 
   type FetchInvoiceStatusResponse = {
     invoice_id: string
@@ -57,21 +58,12 @@
       const {
         deployment_details: { connection_strings }
       } = invoiceStatusResponse
-      console.log(
-        `
-      
-      CONNECTION STRINGS =   
-      
-      `,
-        connection_strings
-      )
       connectionStrings = connection_strings
       stopInvoiceStatusPolling()
     }
   }
 
   function downloadCSV() {
-    console.log('download clicked')
     // Create a CSV content string
     const csvContent = connectionStrings.join('\n')
     // Create a Blob (binary large object) from the CSV content
@@ -104,7 +96,7 @@
     <div>
       <h1 class="font-bold text-6xl text-[#1736F5]">Your Order</h1>
       <p class="mt-5 font-bold text-2xl text-[#1736F5]">Bookmark this page!</p>
-      <div class="mt-5 flex justfy-center">
+      <div class="mt-5 flex justfy-center flex-wrap">
         <p class="text-2xl mr-5 text-center">Save a copy of your order id:</p>
         <CopyValue value={id} />
       </div>
@@ -113,6 +105,14 @@
           <!-- svelte-ignore a11y-click-events-have-key-events -->
           <div class="max-w-sm m-auto border" on:click={downloadCSV}>
             <DownloadButton copy={'.csv DOWNLOAD'} />
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+            {#each connectionStrings as connectionString, index}
+              <div class="mt-5">
+                <p class="mt-5 mb-5 font-bold">NODE {index + 1}:</p>
+                <Qr data={connectionString} />
+              </div>
+            {/each}
           </div>
         {:else}
           <Loading />

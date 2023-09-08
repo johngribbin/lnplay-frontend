@@ -20,15 +20,15 @@
     },
     {
       q: 'How is pricing determined?',
-      a: 'You pay us to set up and host nodes, plus __% fee. For environments demanding a higher node demand, price increases _____'
+      a: 'The price is 200 sats per node-hour. For example, a 16 node environment for 8 hours would be 16*8*200 = 25,600 sats.'
     },
     {
       q: 'What if I need more time or nodes?',
-      a: 'Once purchased, any changes require purchasing a new environment.For larger events or a requirement for a longer rental period, please email us at @ ______.'
+      a: 'Once purchased, any changes require purchasing a new environment. For larger events requiring more nodes or longer rental periods, please email us at info@lnplay.live'
     },
     {
       q: 'What else could LNPlay do?',
-      a: 'We think LNPlay is the proof of concept for a paid lightning instance. What we have created can spin up a temporary infrastracure for microservices on lighting.'
+      a: 'We believe LNPLay is a proof of concept for spinning up ephemeral cloud services. The code is fully open source. We welcome contributors and experimentation with the stack.'
     }
   ]
 </script>
