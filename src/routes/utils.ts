@@ -1,4 +1,5 @@
 import Lnmessage from 'lnmessage'
+import { PUBLIC_ADDRESS, PUBLIC_RUNE, PUBLIC_WEBSOCKET_PROXY } from '$env/static/public'
 
 export type ParsedNodeAddress = {
   publicKey: string
@@ -16,10 +17,14 @@ export function parseNodeAddress(address: string): ParsedNodeAddress {
 export let ln: Lnmessage
 export let connectionStatus$: Lnmessage['connectionStatus$']
 
-const address =
-  '037b91a48eaf301ab330610a9b6d4b0bf5dfb1a1d309e097c561971d58d20ab8f6@lnplay.live:6002'
-export const rune =
-  'VEyOi35UjtAM70GuXWrc7hlQy39s7ccQedBep41cRi49MSZtZXRob2RebG5wbGF5bGl2ZSZyYXRlPTYw'
+const address = PUBLIC_ADDRESS
+export const rune = PUBLIC_RUNE
+
+console.log({
+  address,
+  rune,
+  wsProxy: PUBLIC_WEBSOCKET_PROXY
+})
 
 export async function connect() {
   const { publicKey, ip, port } = parseNodeAddress(address)
@@ -29,7 +34,7 @@ export async function connect() {
     // The public key of the node you would like to connect to
     remoteNodePublicKey: publicKey,
     // WebSocket proxy endpoint to connect through if running in prod
-    wsProxy: 'wss://lnplay.live:6002',
+    wsProxy: PUBLIC_WEBSOCKET_PROXY,
     // The IP address of the node
     ip,
     // The port of the node, defaults to 9735
