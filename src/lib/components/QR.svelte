@@ -25,7 +25,7 @@
         width: size,
         height: size,
         type: 'svg',
-        data: type ? 'invoice' ? `lightning:${data}`.toUpperCase() : data,
+        data: type === 'invoice' ? `lightning:${data}`.toUpperCase() : data,
         imageOptions: { hideBackgroundDots: false, imageSize: 0.25, margin: 0 },
         dotsOptions: {
           type: 'dots',
