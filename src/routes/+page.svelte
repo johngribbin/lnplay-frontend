@@ -139,16 +139,16 @@
       </svg>
     </div>
     <div>
-      <h1 class="font-bold text-6xl text-[#1736F5] mt-5">LNPlay.live</h1>
+      <h1 class="font-bold text-4xl md:text-6xl text-[#1736F5] mt-5">LNPlay.live</h1>
       <p class="mt-5 font-bold text-2xl text-[#1736F5]">Rent a Lightning Network</p>
     </div>
   </section>
-  <p class="mt-10 text-2xl text-[#1736F5] text-center w-full max-w-md m-auto">
+  <p class="mt-10 text-2xl text-[#1736F5] text-center w-full max-w-md m-auto pl-5 pr-5">
     Educate a room by safely demonstrating the power of lightning
   </p>
   <!-- PLACE ORDER -->
-  <section class="mt-20 text-center border p-5 pt-10 pb-10 m-auto rounded bg-[#FEDD2B]/40">
-    <h1 class="font-bold text-6xl">Place Your Order</h1>
+  <section class="w-full mt-20 text-center p-5 pt-10 pb-10 m-auto rounded bg-[#FEDD2B]/40">
+    <h1 class="font-bold text-4xl md:text-6xl">Place Your Order</h1>
     <div class="mt-8 flex gap-4 justify-center items-center">
       <div class="">
         <p class="font-bold text-4xl mr-4">{order.node_count} NODES</p>

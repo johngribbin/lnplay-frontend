@@ -20,12 +20,6 @@ export let connectionStatus$: Lnmessage['connectionStatus$']
 const address = PUBLIC_ADDRESS
 export const rune = PUBLIC_RUNE
 
-console.log({
-  address,
-  rune,
-  wsProxy: PUBLIC_WEBSOCKET_PROXY
-})
-
 export async function connect() {
   const { publicKey, ip, port } = parseNodeAddress(address)
 
@@ -40,12 +34,12 @@ export async function connect() {
     // The port of the node, defaults to 9735
     port,
     // connect directly to a node without TLS
-    wsProtocol: 'ws:'
-    // logger: {
-    //   info: console.log,
-    //   error: console.error,
-    //   warn: console.warn
-    // }
+    wsProtocol: 'ws:',
+    logger: {
+      info: console.log,
+      error: console.error,
+      warn: console.warn
+    }
   })
 
   // initiate the connection to the remote node
