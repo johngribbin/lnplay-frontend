@@ -6,6 +6,7 @@
   import type QRCodeStyling from 'qr-code-styling'
   import CopyValue from '$lib/elements/CopyValue.svelte'
   export let data: string = ''
+  export let type: 'invoice' | 'url' = 'invoice'
 
   export let size = Math.min(window.innerWidth - 50, 400)
 
@@ -24,7 +25,7 @@
         width: size,
         height: size,
         type: 'svg',
-        data: `lightning:${data}`.toUpperCase(),
+        data: type ? 'invoice' ? `lightning:${data}`.toUpperCase() : data,
         imageOptions: { hideBackgroundDots: false, imageSize: 0.25, margin: 0 },
         dotsOptions: {
           type: 'dots',
@@ -44,8 +45,8 @@
   let copyTimeout: NodeJS.Timeout
 
   async function copyInvoice() {
-    if (invoice) {
-      copySuccess = await writeClipboardValue(invoice)
+    if (data) {
+      copySuccess = await writeClipboardValue(data)
 
       if (copySuccess) {
         copyTimeout = setTimeout(() => (copySuccess = false), 3000)

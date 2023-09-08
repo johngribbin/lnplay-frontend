@@ -103,14 +103,14 @@
       <div class="mt-10">
         {#if connectionStrings.length}
           <!-- svelte-ignore a11y-click-events-have-key-events -->
-          <div class="max-w-sm m-auto border" on:click={downloadCSV}>
+          <div class="max-w-sm m-auto" on:click={downloadCSV}>
             <DownloadButton copy={'.csv DOWNLOAD'} />
           </div>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
             {#each connectionStrings as connectionString, index}
               <div class="mt-5">
                 <p class="mt-5 mb-5 font-bold">NODE {index + 1}:</p>
-                <Qr data={connectionString} />
+                <Qr data={connectionString} type="url" />
               </div>
             {/each}
           </div>

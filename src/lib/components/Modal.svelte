@@ -10,7 +10,7 @@
 {#if isOpen}
   <div role="dialog" class="modal">
     <div class="contents">
-      <Qr data={invoice} />
+      <Qr data={invoice} type="invoice" />
 
       <div class="actions">
         <button on:click={closeModal}>OK</button>
