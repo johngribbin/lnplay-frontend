@@ -16,11 +16,11 @@
     },
     {
       q: 'Is this real Bitcoin?',
-      a: 'No. The network you are renting is only using regtest Bitcoin, i.e. not the real thing. You must pay for this service with real Bitcoin, but the network you are renting can only send and receive regtest Bitcoin. So its a playground of sorts, especially for newcomers.'
+      a: 'No. The network you are renting is only using regtest Bitcoin, i.e. not the real thing. You must pay for this service with real Bitcoin, but the network you are renting can only send and receive regtest Bitcoin. This is a playground for newcomers.'
     },
     {
       q: 'How long are block times?',
-      a: 'This is a Regtest with 5 second confirmation times, enabling seamless learning.'
+      a: '5 second confirmation times to help students get right into it.'
     },
     {
       q: 'How is pricing determined?',
