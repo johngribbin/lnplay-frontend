@@ -1,6 +1,6 @@
 <script lang="ts">
   import { fade } from 'svelte/transition'
-  import { onDestroy, onMount } from 'svelte'
+  import { onDestroy } from 'svelte'
   import { writeClipboardValue } from '../utils'
   import { browser } from '$app/environment'
   import type QRCodeStyling from 'qr-code-styling'
