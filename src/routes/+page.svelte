@@ -105,9 +105,9 @@
   })
 </script>
 
-<main class="p-6 pt-0 relative">
+<main class="relative">
   <!-- HERO / VALUE PROP -->
-  <section class="text-center flex flex-wrap-reverse justify-center items-center gap-10">
+  <section class="text-center flex flex-wrap-reverse justify-center items-center gap-10 pl-5 pr-5">
     <div class="max-w-sm">
       <svg
         width="100%"
@@ -153,15 +153,15 @@
       </svg>
     </div>
     <div>
-      <h1 class="font-bold text-6xl text-[#1736F5]">LNPlay.live</h1>
+      <h1 class="font-bold text-6xl text-[#1736F5] mt-5">LNPlay.live</h1>
       <p class="mt-5 font-bold text-2xl text-[#1736F5]">Rent a Lightning Network</p>
     </div>
   </section>
-  <p class="mt-10 text-4xl text-bold text-[#1736F5] text-center max-w-2xl m-auto">
-    {`explore the power of the lightning network with your own testing environment`}
+  <p class="mt-10 text-4xl text-bold text-[#1736F5] text-center max-w-2xl m-auto pl-5 pr-5">
+    explore the power of the lightning network with your own testing environment
   </p>
   <!-- PLACE ORDER -->
-  <section class="mt-20 text-center border max-w-3xl p-5 pt-10 pl-10 m-auto rounded bg-[#FEDD2B]">
+  <section class="mt-20 text-center border p-5 pt-10 pb-10 m-auto rounded bg-[#FEDD2B]/40">
     <h1 class="font-bold text-6xl">Place Your Order</h1>
     <div class="mt-8 flex gap-4 justify-center items-center">
       <div class="">
@@ -211,7 +211,7 @@
     </div>
   </section>
   <!-- FAQ -->
-  <section class="mt-20 mb-20 max-w-3xl m-auto">
+  <section class="mt-20 mb-20 max-w-3xl m-auto pl-5 pr-5">
     <h1 class="font-bold text-6xl mb-5">FAQ</h1>
     <FAQ />
   </section>
