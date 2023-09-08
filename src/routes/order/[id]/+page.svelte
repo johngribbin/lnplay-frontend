@@ -1,8 +1,10 @@
 <script lang="ts">
   import { page } from '$app/stores'
   import CopyValue from '$lib/elements/CopyValue.svelte'
-  import { onMount } from 'svelte'
-  import { request } from '../../utils'
+  import Loading from '$lib/components/Loading.svelte'
+  import DownloadButton from '$lib/components/DownloadButton.svelte'
+  import { onDestroy, onMount } from 'svelte'
+  import { connect, request } from '../../utils'
 
   type FetchInvoiceStatusResponse = {
     invoice_id: string
@@ -10,13 +12,23 @@
     hours: number
     payment_type: string
     invoice_status: string
-    deployment_details: string
+    deployment_details: DeploymentDetails
   }
 
-  const { id } = $page.params
+  type DeploymentDetails = {
+    node_count: 8
+    hours: 8
+    lnlive_plugin_version: string
+    vm_expiration_date: string
+    status: string
+    connection_strings: string[]
+  }
 
+  // ID of the order
+  const { id } = $page.params
   let invoiceStatusResponse: FetchInvoiceStatusResponse | null = null
   let pollInterval: string | number | NodeJS.Timer | undefined
+  let connectionStrings: string[] = []
 
   async function fetchInvoiceStatus() {
     if (id) {
@@ -40,8 +52,49 @@
     clearInterval(pollInterval)
   }
 
+  $: {
+    if (invoiceStatusResponse?.deployment_details?.connection_strings.length) {
+      const {
+        deployment_details: { connection_strings }
+      } = invoiceStatusResponse
+      console.log(
+        `
+      
+      CONNECTION STRINGS =   
+      
+      `,
+        connection_strings
+      )
+      connectionStrings = connection_strings
+      stopInvoiceStatusPolling()
+    }
+  }
+
+  function downloadCSV() {
+    console.log('download clicked')
+    // Create a CSV content string
+    const csvContent = connectionStrings.join('\n')
+    // Create a Blob (binary large object) from the CSV content
+    const blob = new Blob([csvContent], { type: 'text/csv' })
+    // Create a temporary URL for the Blob
+    const url = window.URL.createObjectURL(blob)
+    // Create a link element for downloading
+    const link = document.createElement('a')
+    link.href = url
+    link.download = 'data.csv' // Set the filename
+    // Simulate a click to trigger the download
+    link.click()
+    // Clean up by revoking the Object URL
+    window.URL.revokeObjectURL(url)
+  }
+
   onMount(() => {
+    connect()
     startInvoiceStatusPolling()
+  })
+
+  onDestroy(() => {
+    stopInvoiceStatusPolling()
   })
 </script>
 
@@ -51,9 +104,20 @@
     <div>
       <h1 class="font-bold text-6xl text-[#1736F5]">Your Order</h1>
       <p class="mt-5 font-bold text-2xl text-[#1736F5]">Bookmark this page!</p>
-      <div class="mt-5 flex">
-        <p class="text-[#1736F5] mr-5">Save a copy of your order id:</p>
-        <CopyValue value={id} truncateLength={10} />
+      <div class="mt-5 flex justfy-center">
+        <p class="text-2xl mr-5 text-center">Save a copy of your order id:</p>
+        <CopyValue value={id} />
+      </div>
+      <div class="mt-10">
+        {#if connectionStrings.length}
+          <!-- svelte-ignore a11y-click-events-have-key-events -->
+          <div class="max-w-sm m-auto border" on:click={downloadCSV}>
+            <DownloadButton copy={'.csv DOWNLOAD'} />
+          </div>
+        {:else}
+          <Loading />
+          <p class="mt-5 text-2xl">Hang tight! Your nodes will be ready soon...</p>
+        {/if}
       </div>
     </div>
   </section>

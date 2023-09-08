@@ -61,7 +61,7 @@
   }
 
   function startInvoiceStatusPolling() {
-    pollInterval = setInterval(fetchInvoiceStatus, 5000) // 5 seconds
+    pollInterval = setInterval(fetchInvoiceStatus, 1000) // 1 second
   }
 
   function stopInvoiceStatusPolling() {
