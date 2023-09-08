@@ -28,15 +28,7 @@
         imageOptions: { hideBackgroundDots: false, imageSize: 0.25, margin: 0 },
         dotsOptions: {
           type: 'dots',
-          color: '#ec4899',
-          gradient: {
-            type: 'radial',
-            rotation: 0.017453292519943295,
-            colorStops: [
-              { offset: 0, color: '#f97316' },
-              { offset: 1, color: '#d946ef' }
-            ]
-          }
+          color: '#000000'
         },
         backgroundOptions: { color: '#ffffff' },
         cornersSquareOptions: { type: 'extra-rounded', color: '#22c55e' },
