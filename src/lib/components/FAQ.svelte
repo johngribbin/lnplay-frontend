@@ -4,7 +4,7 @@
   const faqs = [
     {
       q: 'Who is this for?',
-      a: 'A streamlined and interactive introduction to lightning nodes for Bitcoin education; ideal for meetups, classrooms, conferences, boardrooms, family gatherings, and even dev experimentation.'
+      a: 'Bitcoin educators looking for a streamlined and interactive introduction to lightning nodes for; meetups, classrooms, conferences, boardrooms, family gatherings, and even dev experimentation.'
     },
     {
       q: 'What do participants learn?',
