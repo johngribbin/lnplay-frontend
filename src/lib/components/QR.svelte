@@ -1,6 +1,6 @@
 <script lang="ts">
   import { fade } from 'svelte/transition'
-  import { onDestroy } from 'svelte'
+  import { onDestroy, onMount } from 'svelte'
   import { writeClipboardValue } from '../utils'
   import { browser } from '$app/environment'
   import type QRCodeStyling from 'qr-code-styling'
@@ -24,7 +24,7 @@
       qrCode = new QRCodeStyling({
         width: size,
         height: size,
-        type: 'svg',
+        type: 'canvas',
         data: type === 'invoice' ? `lightning:${data}`.toUpperCase() : data,
         imageOptions: { hideBackgroundDots: false, imageSize: 0.25, margin: 0 },
         dotsOptions: {
