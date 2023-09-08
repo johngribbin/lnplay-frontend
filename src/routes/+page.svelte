@@ -149,9 +149,9 @@
   <!-- PLACE ORDER -->
   <section class="w-full mt-20 text-center p-5 pt-10 pb-10 m-auto rounded bg-[#FEDD2B]/40">
     <h1 class="font-bold text-4xl md:text-6xl">Place Your Order</h1>
-    <div class="mt-8 flex gap-4 justify-center items-center">
-      <div class="">
-        <p class="font-bold text-4xl mr-4">{order.node_count} NODES</p>
+    <div class="mt-8 flex-wrap md:flex gap-5 justify-center items-center">
+      <div>
+        <p class="font-bold text-2xl text-4xl mr-4">{order.node_count} NODES</p>
         <input
           class="h-2 bg-blue-200 appearance-none mr-4"
           type="range"
@@ -167,7 +167,7 @@
           }}
         />
       </div>
-      <div class="">
+      <div class="mt-5 md:mt-0">
         <p CLASS="font-bold text-4xl mr-4">{order.hours} HOURS</p>
         <input
           class="h-2 bg-blue-200 appearance-none mr-4"
