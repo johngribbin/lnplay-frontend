@@ -22,7 +22,6 @@ export const rune =
   'VEyOi35UjtAM70GuXWrc7hlQy39s7ccQedBep41cRi49MSZtZXRob2RebG5wbGF5bGl2ZSZyYXRlPTYw'
 
 export async function connect() {
-  console.log('conect was called')
   const { publicKey, ip, port } = parseNodeAddress(address)
 
   // https://github.com/aaronbarnardsound/lnmessage#initialisation
@@ -46,8 +45,6 @@ export async function connect() {
 
   // initiate the connection to the remote node
   await ln.connect()
-
-  console.log('LN = ', ln)
 }
 
 export async function request(method: string, params: string) {

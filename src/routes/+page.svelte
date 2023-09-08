@@ -42,21 +42,8 @@
       `{ "node_count": ${node_count}, "hours": ${hours} }`
     )) as CreateOrderResponse
 
-    console.log(
-      `
-    
-    response = 
-    
-    `,
-      response
-    )
     if (response) {
       createOrderResponse = response
-      console.log(`
-      
-      createOrderResponse = ${createOrderResponse}
-      
-      `)
     }
   }
 
@@ -68,7 +55,6 @@
       )) as FetchInvoiceStatusResponse
 
       if (response) {
-        console.log('lnplaylive-invoicestatus response = ', response)
         invoiceStatusResponse = response
       }
     }
@@ -157,8 +143,8 @@
       <p class="mt-5 font-bold text-2xl text-[#1736F5]">Rent a Lightning Network</p>
     </div>
   </section>
-  <p class="mt-10 text-2xl text-[#1736F5] text-center max-w-2xl m-auto">
-    {`Educate a room by safely demonstrating the power of lightning`}
+  <p class="mt-10 text-2xl text-[#1736F5] text-center w-full max-w-md m-auto">
+    Educate a room by safely demonstrating the power of lightning
   </p>
   <!-- PLACE ORDER -->
   <section class="mt-20 text-center border p-5 pt-10 pb-10 m-auto rounded bg-[#FEDD2B]/40">
