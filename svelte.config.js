@@ -5,13 +5,10 @@ import preprocess from 'svelte-preprocess'
 const config = {
   preprocess: preprocess(),
   kit: {
-    adapter: adapter({ strict: false }),
+    adapter: adapter({ fallback: '404.html' }),
     serviceWorker: {
       register: false
     }
-    // paths: {
-    // 	base: production ? '/website' : ''
-    // }
   }
 }
 
