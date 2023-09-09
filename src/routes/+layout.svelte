@@ -6,6 +6,7 @@
 <slot />
 
 <Modals>
+  <!-- svelte-ignore a11y-click-events-have-key-events -->
   <div slot="backdrop" class="backdrop" on:click={closeModal} />
 </Modals>
 

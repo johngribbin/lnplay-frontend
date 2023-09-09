@@ -40,10 +40,4 @@
     pointer-events: auto;
     max-width: 500px;
   }
-
-  .actions {
-    margin-top: 32px;
-    display: flex;
-    justify-content: flex-end;
-  }
 </style>

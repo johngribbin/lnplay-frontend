@@ -123,7 +123,7 @@
           on:change={(e) => {
             order = {
               ...order,
-              node_count: e.target.value
+              node_count: e?.target.value
             }
           }}
         />
@@ -140,7 +140,7 @@
           on:change={(e) => {
             order = {
               ...order,
-              hours: e.target.value
+              hours: e?.target.value
             }
           }}
         />
