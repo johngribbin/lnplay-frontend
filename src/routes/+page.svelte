@@ -96,13 +96,15 @@
 <main class="relative">
   <!-- HERO / VALUE PROP -->
   <section class="text-center flex flex-wrap-reverse justify-center items-center gap-10 pl-5 pr-5">
+   
+    <div>
+      <h1 class="font-bold text-4xl md:text-6xl text-[#1736F5] mt-5">Rent a private Lightning Network</h1>
+      <p class="mt-5 font-bold text-2xl text-[#1736F5]">LNPlay.live</p>
+    </div>
     <div class="max-w-sm">
       <svelte:component this={LightningBoltSVG} />
     </div>
-    <div>
-      <h1 class="font-bold text-4xl md:text-6xl text-[#1736F5] mt-5">LNPlay.live</h1>
-      <p class="mt-5 font-bold text-2xl text-[#1736F5]">Rent a Lightning Network</p>
-    </div>
+   
   </section>
   <p class="mt-10 text-2xl text-[#1736F5] text-center w-full max-w-md m-auto pl-5 pr-5">
     Educate a room by safely demonstrating the power of lightning
