@@ -135,10 +135,10 @@
 <main class="relative">
   <!-- HERO / VALUE PROP -->
   <section class="text-center flex flex-wrap-reverse justify-center items-center gap-10 pl-5 pr-5">
-   
+   <!--swapped bolt svg and text from right to left. Also added word "private"-->
     <div>
-      <h1 class="font-bold text-4xl md:text-6xl text-[#1736F5] mt-5">Rent a private Lightning Network</h1>
-      <p class="mt-5 font-bold text-2xl text-[#1736F5]">LNPlay.live</p>
+      <h1 class="font-bold text-4xl md:text-6xl text-[#1736F5] mt-5">LNPlay.live</h1>
+      <p class="mt-5 font-bold text-2xl text-[#1736F5]">Rent a Private Lightning Network</p>
     </div>
     <div class="max-w-sm">
       <svelte:component this={LightningBoltSVG} />
