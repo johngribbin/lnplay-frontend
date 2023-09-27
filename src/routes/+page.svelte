@@ -170,7 +170,8 @@
         />
       </div>
       <div class="mt-5 md:mt-0">
-        <p CLASS="font-bold text-4xl mr-4">{order.hours} HOURS</p>
+        <!--Had to fix font style for HOURS below like this. Some type of bug caused fix like this-->
+        <p style="font-family: 'Courier New', Courier, monospace; font-weight: 700; font-size: 41px; line-height: 45px; color: #000000;">{order.hours} HOURS</p>
         <input
           class="h-2 bg-blue-200 appearance-none mr-4"
           type="range"
