@@ -92,7 +92,32 @@
     stopInvoiceStatusPolling()
   })
 </script>
+<style>
+  .construction-banner {
+    width: 100%;
+    height: 50px;
+    border-top-left-radius: 0; /* Set top-left border radius to 0 */
+    border-top-right-radius: 0; /* Set top-right border radius to 0 */
+    border-bottom-left-radius: 8px; /* Maintain bottom-left border radius as 8px */
+    border-bottom-right-radius: 8px; /* Maintain bottom-right border radius as 8px */
+    background: #1736F5; /* Updated background color */
+    box-shadow: 0px 4px 6px 1px rgba(0, 0, 0, 0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
 
+  .construction-banner-text {
+    font-family: "Courier New", monospace;
+    font-weight: bold;
+    font-size: 24px;
+    color: #FEDD2B;
+  }
+<!--Added banner-->
+<div class="construction-banner">
+  <span class="construction-banner-text">Under Construction</span>
+</div>
 <main class="relative">
   <!-- HERO / VALUE PROP -->
   <section class="text-center flex flex-wrap-reverse justify-center items-center gap-10 pl-5 pr-5">
